@@ -23,7 +23,8 @@ export async function signIn(prevState: ActionState, formData: FormData): Promis
   const result = signInSchema.safeParse(data);
 
   if (!result.success) {
-    return { error: result.error.errors[0].message, ...result.data };
+    // Perbaikan: Hanya mengembalikan error message tanpa mencoba menyebarkan result.data
+    return { error: result.error.errors[0].message };
   }
 
   const { email, password, redirect: redirectTo, priceId } = result.data;
@@ -33,7 +34,7 @@ export async function signIn(prevState: ActionState, formData: FormData): Promis
     const response = await fetch(`${EXPRESS_BACKEND_URL}/api/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: email, password }), // Express.js Anda menerima 'username' atau 'email'
+      body: JSON.stringify({ username: email, password }),
       credentials: 'include', // PENTING: Untuk mengirim dan menerima HttpOnly cookie
     });
 
@@ -85,7 +86,8 @@ export async function signUp(prevState: ActionState, formData: FormData): Promis
   const result = signUpSchema.safeParse(data);
 
   if (!result.success) {
-    return { error: result.error.errors[0].message, ...result.data };
+    // Perbaikan: Hanya mengembalikan error message tanpa mencoba menyebarkan result.data
+    return { error: result.error.errors[0].message };
   }
 
   const { username, email, password, inviteId, redirect: redirectTo, priceId } = result.data;
@@ -156,7 +158,7 @@ export async function updatePassword(prevState: ActionState, formData: FormData)
   const result = updatePasswordSchema.safeParse(data);
 
   if (!result.success) {
-    return { error: result.error.errors[0].message, ...result.data };
+    return { error: result.error.errors[0].message }; // Perbaikan
   }
 
   const { currentPassword, newPassword, confirmPassword } = result.data;
@@ -198,7 +200,7 @@ export async function deleteAccount(prevState: ActionState, formData: FormData):
   const result = deleteAccountSchema.safeParse(data);
 
   if (!result.success) {
-    return { error: result.error.errors[0].message, ...result.data };
+    return { error: result.error.errors[0].message }; // Perbaikan
   }
 
   const { password } = result.data;
@@ -239,7 +241,7 @@ export async function updateAccount(prevState: ActionState, formData: FormData):
   const result = updateAccountSchema.safeParse(data);
 
   if (!result.success) {
-    return { error: result.error.errors[0].message, ...result.data };
+    return { error: result.error.errors[0].message }; // Perbaikan
   }
 
   const { name, email } = result.data;
