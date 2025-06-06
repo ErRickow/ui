@@ -16,7 +16,7 @@ import { Suspense } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Loader2, PlusCircle, Trash2, CheckCircle, XCircle } from 'lucide-react';
-import { requestSubscriptionEmail } from '@/app/(dashboard)/pricing/actions'; // Menggunakan aksi permintaan email
+//import { requestSubscriptionEmail } from '@/app/(dashboard)/pricing/actions'; // Menggunakan aksi permintaan email
 import { generateUserApiKey, deactivateUserApiKey, deleteUserApiKeyPermanent } from '@/app/actions/api-key-actions'; // Import aksi API Key baru
 
 type ActionState = {
@@ -50,7 +50,6 @@ function SubscriptionInfo() {
   const { data: teamData } = useSWR<Team>('/api/team', fetcher);
 
   const [state, formAction, pending] = useActionState<ActionState, FormData>(
-    requestSubscriptionEmail,
     {}
   );
 
