@@ -3,7 +3,7 @@
 
 import { z } from 'zod';
 import { redirect } from 'next/navigation';
-import { cookies } from 'next/headers';
+import { cookies } from 'next/headers'; // Perlu di-await
 
 import { ActionState } from '@/lib/auth/middleware';
 import { User } from '@/lib/db/schema'; // Menggunakan tipe User yang sudah disesuaikan
@@ -142,7 +142,8 @@ export async function signOut() {
     console.error('Gagal memanggil logout backend:', error);
   }
 
-  cookies().delete('session');
+  // Perbaikan: Gunakan await di sini
+  (await cookies()).delete('session');
   redirect('/');
 }
 
@@ -221,7 +222,8 @@ export async function deleteAccount(prevState: ActionState, formData: FormData):
       return { error: responseData.message || 'Gagal menghapus akun.' };
     }
 
-    cookies().delete('session');
+    // Perbaikan: Gunakan await di sini
+    (await cookies()).delete('session');
     redirect('/sign-in');
     return { success: 'Akun berhasil dihapus.' };
   } catch (error: any) {
