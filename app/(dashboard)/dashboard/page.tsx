@@ -12,11 +12,11 @@ import {
 import { useActionState } from 'react';
 import { Team, User, ApiKey } from '@/lib/db/schema'; // Menggunakan tipe yang disesuaikan
 import useSWR from 'swr';
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react'; // Tambahkan useState
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Loader2, PlusCircle, Trash2, CheckCircle, XCircle } from 'lucide-react';
-//import { requestSubscriptionEmail } from '@/app/(dashboard)/pricing/actions'; // Menggunakan aksi permintaan email
+// import { requestSubscriptionEmail } from '@/app/(dashboard)/pricing/actions'; // Dihapus: tidak digunakan lagi
 import { generateUserApiKey, deactivateUserApiKey, deleteUserApiKeyPermanent } from '@/app/actions/api-key-actions'; // Import aksi API Key baru
 
 type ActionState = {
@@ -49,9 +49,8 @@ function SubscriptionInfo() {
   // Mengambil data tim dari API Route Next.js (jika ada konsep tim di backend Anda)
   const { data: teamData } = useSWR<Team>('/api/team', fetcher);
 
-  const [state, formAction, pending] = useActionState<ActionState, FormData>(
-    {}
-  );
+  // Menggunakan useState untuk pesan sederhana, bukan useActionState
+  const [subscriptionMessage, setSubscriptionMessage] = useState<string | null>(null);
 
   // Data dummy untuk plan (sesuaikan jika Anda memiliki endpoint di Express.js untuk daftar plan)
   const DUMMY_PRICING_PLANS = {
@@ -62,6 +61,14 @@ function SubscriptionInfo() {
 
   const currentPlanName = teamData?.planName || 'Free'; // Asumsi 'Free' jika tidak ada plan
   const currentSubscriptionStatus = teamData?.subscriptionStatus;
+
+  const handleManageSubscriptionClick = () => {
+    // Di sini Anda bisa menampilkan modal, mengarahkan ke halaman kontak,
+    // atau menampilkan pesan sederhana.
+    setSubscriptionMessage('Silakan hubungi administrator atau tim penjualan kami untuk mengubah langganan Anda.');
+    // Atau, jika ada halaman khusus di backend Express.js untuk manajemen, Anda bisa redirect:
+    // window.location.href = `${process.env.NEXT_PUBLIC_EXPRESS_BACKEND_URL}/manage-subscription-portal`;
+  };
 
   return (
     <Card className="mb-8">
@@ -83,24 +90,14 @@ function SubscriptionInfo() {
                   : 'Tidak ada langganan aktif.'}
               </p>
             </div>
-            {/* Tombol untuk meminta perubahan langganan via email */}
-            <form action={formAction}>
-              <input type="hidden" name="planId" value={currentPlanName} />
-              <input type="hidden" name="planName" value={DUMMY_PRICING_PLANS[currentPlanName as keyof typeof DUMMY_PRICING_PLANS] || currentPlanName} />
-              <Button type="submit" variant="outline" disabled={pending}>
-                {pending ? (
-                  <>
-                    <Loader2 className="animate-spin mr-2 h-4 w-4" />
-                    Mengirim...
-                  </>
-                ) : (
-                  'Ubah Langganan'
-                )}
-              </Button>
-            </form>
+            {/* Tombol "Ubah Langganan" tanpa form dan useActionState */}
+            <Button type="button" variant="outline" onClick={handleManageSubscriptionClick}>
+              Ubah Langganan
+            </Button>
           </div>
-          {state.error && <p className="text-red-500 mt-4">{state.error}</p>}
-          {state.success && <p className="text-green-500 mt-4">{state.success}</p>}
+          {subscriptionMessage && (
+            <p className="text-blue-600 mt-4 text-sm">{subscriptionMessage}</p>
+          )}
         </div>
       </CardContent>
     </Card>
@@ -208,7 +205,7 @@ function ApiKeyManagement() {
               {generateState.apiKey && (
                 <p className="font-mono text-sm break-all">Kunci Baru: {generateState.apiKey.id}</p>
               )}
-              <p className="text-sm text-gray-600">{generateState.note}</p>
+              {/* Note dari generateState tidak selalu ada */}
             </div>
           )}
           {deactivateState.error && <p className="text-red-500 mt-4">{deactivateState.error}</p>}
