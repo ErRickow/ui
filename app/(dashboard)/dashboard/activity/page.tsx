@@ -30,10 +30,10 @@ const iconMap: Record<ActivityType | string, LucideIcon> = {
   [ActivityType.UPDATE_PASSWORD]: Lock,
   [ActivityType.DELETE_ACCOUNT]: UserMinus,
   [ActivityType.UPDATE_ACCOUNT]: Settings,
-  [ActivityType.CREATE_TEAM]: UserPlus, // Jika masih ada konsep ini
+/*  [ActivityType.CREATE_TEAM]: UserPlus, // Jika masih ada konsep ini
   [ActivityType.REMOVE_TEAM_MEMBER]: UserMinus, // Jika masih ada konsep ini
   [ActivityType.INVITE_TEAM_MEMBER]: Mail, // Jika masih ada konsep ini
-  [ActivityType.ACCEPT_INVITATION]: CheckCircle, // Jika masih ada konsep ini
+  [ActivityType.ACCEPT_INVITATION]: CheckCircle, // Jika masih ada konsep ini*/
   [ActivityType.CHAT_COMPLETION]: MessageSquare,
   [ActivityType.EMBEDDINGS]: DatabaseZap,
   [ActivityType.MODERATION]: ShieldAlert,
