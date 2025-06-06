@@ -1,6 +1,6 @@
 'use client';
 
-import React
+import React, { useState, Suspense } from 'react'; // Import React dan useState
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -13,11 +13,9 @@ import {
 import { useActionState } from 'react';
 import { Team, User, ApiKey } from '@/lib/db/schema'; // Menggunakan tipe yang disesuaikan
 import useSWR from 'swr';
-import { Suspense, useState } from 'react'; // Tambahkan useState
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Loader2, PlusCircle, Trash2, CheckCircle, XCircle } from 'lucide-react';
-// import { requestSubscriptionEmail } from '@/app/(dashboard)/pricing/actions'; // Dihapus: tidak digunakan lagi
 import { generateUserApiKey, deactivateUserApiKey, deleteUserApiKeyPermanent } from '@/app/actions/api-key-actions'; // Import aksi API Key baru
 
 type ActionState = {
