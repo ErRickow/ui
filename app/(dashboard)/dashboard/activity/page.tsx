@@ -71,10 +71,10 @@ function formatAction(action: string): string {
     case ActivityType.UPDATE_PASSWORD: return 'Anda mengubah kata sandi';
     case ActivityType.DELETE_ACCOUNT: return 'Anda menghapus akun Anda';
     case ActivityType.UPDATE_ACCOUNT: return 'Anda memperbarui akun Anda';
-    case ActivityType.CREATE_TEAM: return 'Anda membuat tim baru';
+    /*case ActivityType.CREATE_TEAM: return 'Anda membuat tim baru';
     case ActivityType.REMOVE_TEAM_MEMBER: return 'Anda menghapus anggota tim';
     case ActivityType.INVITE_TEAM_MEMBER: return 'Anda mengundang anggota tim';
-    case ActivityType.ACCEPT_INVITATION: return 'Anda menerima undangan';
+    case ActivityType.ACCEPT_INVITATION: return 'Anda menerima undangan';*/
     case ActivityType.CHAT_COMPLETION: return 'Menjalankan penyelesaian obrolan';
     case ActivityType.EMBEDDINGS: return 'Menghasilkan embeddings';
     case ActivityType.MODERATION: return 'Melakukan moderasi konten';
