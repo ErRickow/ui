@@ -42,6 +42,7 @@ export type ApiKey = {
   id: string; // Ini adalah 'id_key_string' atau 'api_key' dari Express.js
   keyInternalId: number; // Ini adalah 'key_uuid' atau 'id' internal dari Express.js
   name: string | null;
+  userId: string; // <-- Add this line
   tier: string; // Nama tier, misalnya 'Free', 'Basic'
   dailyUsage: number;
   monthlyUsage: number;
@@ -54,7 +55,6 @@ export type ApiKey = {
   monthlyResetAt: Date;
   creator: string;
 };
-
 // Tipe untuk TeamDataWithMembers (dibuat kosong karena teamMembers dihilangkan)
 export type TeamDataWithMembers = Team;
 
