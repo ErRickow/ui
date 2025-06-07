@@ -163,7 +163,7 @@ export async function getActivityLogs(): Promise<ActivityLog[]> {
       id: log.id || Math.random(), // Gunakan ID yang unik jika backend tidak konsisten
       teamId: log.team_id || null, // Jika backend mengembalikan, jika tidak, null
       userId: user.id, // Gunakan user.id dari sesi Next.js
-      action: log.request_type || log.model_used || ActivityType.UNKNOWN_ACTION, // Sesuaikan dengan kolom Express.js
+      action: log.request_type || log.model_used,
       timestamp: new Date(log.usage_date || log.created_at),
       ipAddress: log.ip_address || null, // Jika backend mengembalikan, jika tidak, null
       userName: user.name || 'Unknown', // Gunakan user.name dari sesi Next.js
