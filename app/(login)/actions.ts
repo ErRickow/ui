@@ -53,14 +53,14 @@ export async function signIn(prevState: ActionState, formData: FormData): Promis
     // Tidak perlu setSession eksplisit di sini.
 
     // Alur berlangganan via email (menggantikan Stripe)
-    if (redirectTo === 'checkout' && priceId) {
+    /*if (redirectTo === 'checkout' && priceId) {
       // Redirect ke halaman pricing untuk memicu aksi pengiriman email
       redirect(`/pricing?action=request-subscription&priceId=${priceId}`);
       return { success: 'Permintaan berlangganan akan diproses. Silakan cek email Anda.' };
-    }
+    }*/
 
     redirect('/dashboard');
-    return { success: 'Login berhasil' }; // Tidak akan tercapai karena redirect
+  //  return { success: 'Login berhasil' }; // Tidak akan tercapai karena redirect
   } catch (error: any) {
     console.error('Terjadi kesalahan saat login:', error);
     return {
