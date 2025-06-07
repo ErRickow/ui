@@ -18,7 +18,10 @@ export async function generateUserApiKey(prevState: ActionState, formData: FormD
   const result = generateApiKeySchema.safeParse(Object.fromEntries(formData));
 
   if (!result.success) {
-    return { error: result.error.errors[0].message, ...result.data };
+    // Corrected line: Do not spread result.data if result.success is false,
+    // as result.data will be undefined or a partial object without the expected structure.
+    // Instead, return only the error message.
+    return { error: result.error.errors[0].message };
   }
 
   const { name, tier } = result.data;
