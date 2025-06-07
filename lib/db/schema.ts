@@ -42,7 +42,7 @@ export type ApiKey = {
   id: string; // Ini adalah 'id_key_string' atau 'api_key' dari Express.js
   keyInternalId: number; // Ini adalah 'key_uuid' atau 'id' internal dari Express.js
   name: string | null;
-  userId: string; // <-- Add this line
+  userId: number; // <-- Add this line
   tier: string; // Nama tier, misalnya 'Free', 'Basic'
   dailyUsage: number;
   monthlyUsage: number;
